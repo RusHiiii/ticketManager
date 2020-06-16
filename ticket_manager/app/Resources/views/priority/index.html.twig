@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+<div role="main" class="main-content">
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Gestion des Priorités</h1>
+    <p>Visualisation des priorités</p>
+
+    <div class="information_header">
+      <a href="{{ path('priority_new') }}"><button class="btn btn-primary blue">Ajout</button></a>
+      <h2 class="sub-header">Les groupes</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Poids</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for priority in priorities %}
+              <tr>
+                  <td>{{ priority.id }}</td>
+                  <td>{{ priority.priorityName }}</td>
+                  <td>{{ priority.priorityWeight }}</td>
+                  <td>
+                    <a href="{{ path('priority_edit', { 'id': priority.id }) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                  </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock %}

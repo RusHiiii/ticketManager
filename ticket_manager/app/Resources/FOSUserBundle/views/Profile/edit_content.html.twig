@@ -1,0 +1,61 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% extends "::layout.html.twig" %}
+
+{% block fos_user_content %}
+
+  <div class="container">
+    <div class="row">
+      
+      <form action="{{ path("fos_user_profile_edit") }}" name="fos_user_profile_edit" method="post"  class="well form-horizontal" action=" " method="post">
+        <fieldset>
+          <legend>Modifier un utilisateur</legend>
+
+          <div class="form-group">
+            <label for="fos_user_profile_form_username" class="required col-md-4 control-label">Nom utilisateur</label>
+            <div class="col-md-4 inputGroupContainer">
+              <div class="input-group">
+                {{ form_errors(form.username) }}
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input class="form-control" id="fos_user_profile_form_username" name="fos_user_profile_form[username]" required="required" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fos_user_profile_form_email" class="required col-md-4 control-label">Email</label>
+            <div class="col-md-4 inputGroupContainer">
+              <div class="input-group">
+                {{ form_errors(form.email) }}
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input class="form-control" id="fos_user_profile_form_email" name="fos_user_profile_form[email]" required="required" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fos_user_profile_form_current_password" class="required col-md-4 control-label"> Mot de passe actuel </label>
+            <div class="col-md-4 inputGroupContainer">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input class="form-control" id="fos_user_profile_form_current_password" name="fos_user_profile_form[current_password]" required="required" autocomplete="current-password" type="password">
+              </div>
+            </div>
+          </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label"></label>
+              <div class="col-md-4">
+              <input type="submit" value="Mettre à jour" class="btn btn-warning" id="_submit" name="_submit" />
+            </div>
+          </div>
+
+          {{ form_row(form._token) }}
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock fos_user_content %}

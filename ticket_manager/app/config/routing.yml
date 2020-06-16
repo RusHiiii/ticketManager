@@ -1,0 +1,17 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+list_service:
+    path: "/list/stats1"
+    defaults: { _controller: AppBundle:Home:statistics}
+    methods: [get]
+list_service2:
+    path: "/list/stats2"
+    defaults: { _controller: AppBundle:Home:statistics2}
+    methods: [get]
+list_service3:
+    path: "/list/stats3"
+    defaults: { _controller: AppBundle:Home:statistics3}
+    methods: [get]

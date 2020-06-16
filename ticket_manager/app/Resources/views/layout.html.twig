@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('app.css') }}" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    </head>
+
+
+    <body>
+        {% include("Elements/navBar.html.twig") %}
+        <!-- <span class="sr-only">(current)</span> -->
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-3 col-md-2 sidebar">
+                <!-- Tout le monde -->
+                <ul class="nav nav-sidebar">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="{{ path('ticket_index') }}">Tickets</a></li>
+                </ul>
+                <!-- Opérateur -->
+                {% if is_granted('ROLE_OPERATOR') %}
+                  <ul class="nav nav-sidebar">
+                    <li><a href="{{ path('listCustomer') }}">Clients</a></li>
+                  </ul>
+                {% endif %}
+                <!-- Admin -->
+                {% if is_granted('ROLE_ADMIN') %}
+                  <ul class="nav nav-sidebar">
+                    <li><a href="{{ path('squad_index') }}">Gérer équipes</a></li>
+                    <li><a href="{{ path('user_index') }}">Gérer utilisateurs</a></li>
+                    <li><a href="{{ path('application_index') }}">Gérer applications</a></li>
+                    <li><a href="{{ path('priority_index') }}">Gérer priorité</a></li>
+                  </ul>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+        {% block body %}{% endblock %}
+
+        {% for type, messages in app.session.flashBag.all %}
+            {% for message in messages %}
+                <div class="{{ type }}">
+                    {{ message|trans({}, 'FOSUserBundle') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block fos_user_content %}{% endblock %}
+
+
+        {% block javascripts %}{% endblock %}
+
+    </body>
+
+</html>

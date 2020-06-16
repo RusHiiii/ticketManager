@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+<div role="main" class="main-content">
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Gestion des Groupes</h1>
+    <p>Visualisation des groupes d'utilisateurs</p>
+
+    <div class="information_header">
+      <a href="{{ path('squad_new') }}"><button class="btn btn-primary blue">Ajout</button></a>
+      <h2 class="sub-header">Les groupes</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Nom</th>
+            <th>Capacité</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for squad in squads %}
+              <tr>
+                  <td>{{ squad.id }}</td>
+                  <td>{% if squad.squadDate %}{{ squad.squadDate|date('Y-m-d') }}{% endif %}</td>
+                  <td>{{ squad.squadName }}</td>
+                  <td>{{ squad.squadCapacity }}</td>
+                  <td>
+                    <a href="{{ path('squad_edit', { 'id': squad.id }) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                  </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

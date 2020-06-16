@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <div role="main" class="main-content">
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Gestion des Utilisateurs</h1>
+        <p>Visualisation de tous les utilisateurs</p>
+
+        <div class="information_header">
+          <a href="{{path('user_new')}}"><button class="btn btn-primary blue">Ajout</button></a>
+          <h2 class="sub-header">Les utilisateurs</h2>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Login</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Equipe</th>
+                <th>Application</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+                  <tr>
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.userPhoneNumber }}</td>
+                      <td>{{ user.userSquad }}</td>
+                      <td>{{ user.userApplication }}</td>
+                      <td>
+                        <a href="{{ path('user_show', { 'id': user.id }) }}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-eye-open" ></span></button></a>
+                        <a href="{{ path('user_edit', { 'id': user.id }) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                      </td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+{% endblock %}

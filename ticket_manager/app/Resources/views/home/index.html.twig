@@ -1,0 +1,147 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<div role="main" class="main-content">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h1 class="page-header">Statistiques</h1>
+      <div class="row placeholders">
+        <div class="statsDiv">
+          <canvas id="graph1" width="400" height="400"></canvas>
+          <canvas id="graph2" width="400" height="400"></canvas>
+          <canvas id="graph3" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <div class="information_header">
+      <a href="{{ path('ticket_new') }}"><button class="btn btn-primary blue">Ajout</button></a>
+      <h2 class="sub-header">Mes tickets</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped" id="me">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Mise à jour</th>
+            <th>Equipe</th>
+            <th>Client</th>
+            <th>Créateur</th>
+            <th>Responsable</th>
+            <th>Priorité</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+              <tr>
+                <td><a href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.ticketNum }}</a></td>
+                <td>{{ ticket.ticketName }}</td>
+                <td>{{ ticket.ticketDescription }}</td>
+                <td>{% if ticket.ticketDateStart %}{{ ticket.ticketDateStart|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if ticket.ticketDateEnd %}{{ ticket.ticketDateEnd|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if ticket.ticketLastUpdate %}{{ ticket.ticketLastUpdate|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if ticket.ticketSquad %}{{ ticket.ticketSquad }}{% endif %}</td>
+                <td>{% if ticket.ticketCustomer %}{{ ticket.ticketCustomer }}{% endif %}</td>
+                <td>{% if ticket.ticketUserOwner %}{{ ticket.ticketUserOwner }}{% endif %}</td>
+                <td>{% if ticket.ticketUserManager %}{{ ticket.ticketUserManager }}{% endif %}</td>
+                <td>{% if ticket.ticketPriority %}{{ ticket.ticketPriority }}{% endif %}</td>
+                <td>
+                    <a href="{{ path('ticket_show', { 'id': ticket.id }) }}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-eye-open" ></span></button></a>
+                    <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        $.ajax({
+          url: "/list/stats1",
+        }).done(function(res) {
+            var ctx = $("#graph1");
+            var data = {
+              labels: ["Fermé", "Visible"],
+              datasets: [{
+                  label: 'Mes tickets',
+                  data: JSON.parse(res),
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                  ],
+                  borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+            }
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+            });
+          });
+
+          $.ajax({
+            url: "/list/stats2",
+          }).done(function(res) {
+            var ctx = $("#graph2");
+            var data = {
+              labels: ["Derniere semaine", "Dernier mois"],
+              datasets: [{
+                  label: 'Tickets fermés',
+                  data: JSON.parse(res),
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                  ],
+                  borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+            }
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+            });
+          });
+
+          $.ajax({
+            url: "/list/stats3",
+          }).done(function(res) {
+            var ctx = $("#graph3");
+            var data = {
+              labels: ["Derniere semaine", "Dernier mois"],
+              datasets: [{
+                  label: 'Tickets Ouvert',
+                  data: JSON.parse(res),
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                  ],
+                  borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+            }
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+            });
+          });
+        });
+    </script>
+
+{% endblock %}

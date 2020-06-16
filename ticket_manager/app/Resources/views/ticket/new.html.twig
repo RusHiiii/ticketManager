@@ -1,0 +1,122 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    <div role="main" class="main-content">
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1>Ticket Création</h1>
+        <p>Formulaire de création de ticket</p>
+        <h2 class="sub-header">Formulaire de création</h2>
+
+        <form method="post" name="appbundle_ticket" class="form-horizontal">
+          <div class="form-group">
+            <label class="required col-sm-2 control-label">Numéro</label>
+            <div class="col-sm-10">
+              {{ form_widget(form.ticketNum , { 'attr': {'class': 'form-control'} }) }}
+              {% if form_errors(form.ticketNum) %}
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 error_form">
+                    <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.ticketNum) }}</span>
+                  </div><br/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required col-sm-2 control-label">Nom</label>
+            <div class="col-sm-10">
+              {{ form_widget(form.ticketName , { 'attr': {'class': 'form-control'} }) }}
+              {% if form_errors(form.ticketName) %}
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 error_form">
+                    <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.ticketName) }}</span>
+                  </div><br/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+              {{ form_widget(form.ticketDescription , { 'attr': {'class': 'form-control'} }) }}
+              {% if form_errors(form.ticketDescription) %}
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 error_form">
+                    <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.ticketDescription) }}</span>
+                  </div><br/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required col-sm-2 control-label">Equipe</label>
+            <div class="col-sm-10">
+              {{ form_widget(form.ticketSquad , { 'attr': {'class': 'selectpicker'} }) }}
+              {% if form_errors(form.ticketSquad) %}
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 error_form">
+                    <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.ticketSquad) }}</span>
+                  </div><br/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required col-sm-2 control-label">Client</label>
+            <div class="col-sm-10">
+              {{ form_widget(form.ticketCustomer , { 'attr': {'class': 'selectpicker'} }) }}
+              {% if form_errors(form.ticketCustomer) %}
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 error_form">
+                    <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.ticketCustomer) }}</span>
+                  </div><br/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required col-sm-2 control-label">Responsable</label>
+            <div class="col-sm-10">
+              {{ form_widget(form.ticketUserManager , { 'attr': {'class': 'selectpicker'} }) }}
+              {% if form_errors(form.ticketUserManager) %}
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 error_form">
+                    <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.ticketUserManager) }}</span>
+                  </div><br/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required col-sm-2 control-label">Priorité</label>
+            <div class="col-sm-10">
+              {{ form_widget(form.ticketPriority , { 'attr': {'class': 'selectpicker'} }) }}
+              {% if form_errors(form.ticketPriority) %}
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 error_form">
+                    <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.ticketPriority) }}</span>
+                  </div><br/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <input type="submit" class="btn btn-primary blue" value="Create" />
+            </div>
+          </div>
+          {{ form_row(form._token) }}
+          </form>  </div>
+    </div>
+
+
+{% endblock %}

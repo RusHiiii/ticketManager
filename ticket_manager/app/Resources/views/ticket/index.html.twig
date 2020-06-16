@@ -1,0 +1,130 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<div role="main" class="main-content">
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Liste des ticket</h1>
+    <p>Visualisation des tickets</p>
+
+    <div>
+      <h2 class="sub-header">Recherche rapide</h2>
+      <div style='display: flex;justify-content: left;'>
+        <select class="selectpicker" id="field2Filter" >
+          <option value="num">Numéro</option>
+          <option value="name" >Nom</option>
+          <option value="squad" >Equipe</option>
+          <option value="dev" >Développeur</option>
+        </select>
+        <input style="margin-left: 15px;" class="form-control" id="filterValue" />
+          <div style="margin-left: 55%;">
+            <select class="selectpicker" id="row2Show" >
+              <option value="all">Tout</option>
+              <option value="close">Fermé</option>
+              <option value="visible">Visible</option>
+            </select>
+          </div>
+      </div>
+
+    </div>
+
+    <div class="information_header">
+      <a href="{{ path('ticket_new') }}"><button class="btn btn-primary blue">Ajout</button></a>
+      <h2 class="sub-header">Mes tickets</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped" id="meTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Mise à jour</th>
+            <th>Equipe</th>
+            <th>Client</th>
+            <th>Créateur</th>
+            <th>Responsable</th>
+            <th>Priorité</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+              <tr>
+                <td fieldname="num"><a href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.ticketNum }}</a></td>
+                <td fieldname="name">{{ ticket.ticketName }}</td>
+                <td>{{ ticket.ticketDescription }}</td>
+                <td>{% if ticket.ticketDateStart %}{{ ticket.ticketDateStart|date('Y-m-d') }}{% endif %}</td>
+                <td fieldname="dateEnd">{% if ticket.ticketDateEnd %}{{ ticket.ticketDateEnd|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if ticket.ticketLastUpdate %}{{ ticket.ticketLastUpdate|date('Y-m-d') }}{% endif %}</td>
+                <td fieldname="squad">{% if ticket.ticketSquad %}{{ ticket.ticketSquad }}{% endif %}</td>
+                <td>{% if ticket.ticketCustomer %}{{ ticket.ticketCustomer }}{% endif %}</td>
+                <td>{% if ticket.ticketUserOwner %}{{ ticket.ticketUserOwner }}{% endif %}</td>
+                <td fieldname="dev">{% if ticket.ticketUserManager %}{{ ticket.ticketUserManager }}{% endif %}</td>
+                <td>{% if ticket.ticketPriority %}{{ ticket.ticketPriority }}{% endif %}</td>
+                <td>
+                    <a href="{{ path('ticket_show', { 'id': ticket.id }) }}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-eye-open" ></span></button></a>
+                    <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                    <a href="{{ path('ticket_validate', { 'id': ticket.id }) }}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok" ></span></button></a>
+                </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="information_header">
+      <a href="{{ path('ticket_new') }}"><button class="btn btn-primary blue">Ajout</button></a>
+      <h2 class="sub-header">Les tickets du groupe</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped" id="groupTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Mise à jour</th>
+            <th>Equipe</th>
+            <th>Client</th>
+            <th>Créateur</th>
+            <th>Responsable</th>
+            <th>Priorité</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in ticketsGroup %}
+              <tr>
+                <td fieldname="num"><a href="{{ path('ticket_show', { 'id': ticket.id }) }}">{{ ticket.ticketNum }}</a></td>
+                <td fieldname="name">{{ ticket.ticketName }}</td>
+                <td>{{ ticket.ticketDescription }}</td>
+                <td>{% if ticket.ticketDateStart %}{{ ticket.ticketDateStart|date('Y-m-d') }}{% endif %}</td>
+                <td fieldname="dateEnd">{% if ticket.ticketDateEnd %}{{ ticket.ticketDateEnd|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if ticket.ticketLastUpdate %}{{ ticket.ticketLastUpdate|date('Y-m-d') }}{% endif %}</td>
+                <td fieldname="squad">{% if ticket.ticketSquad %}{{ ticket.ticketSquad }}{% endif %}</td>
+                <td>{% if ticket.ticketCustomer %}{{ ticket.ticketCustomer }}{% endif %}</td>
+                <td>{% if ticket.ticketUserOwner %}{{ ticket.ticketUserOwner }}{% endif %}</td>
+                <td fieldname="dev">{% if ticket.ticketUserManager %}{{ ticket.ticketUserManager }}{% endif %}</td>
+                <td>{% if ticket.ticketPriority %}{{ ticket.ticketPriority }}{% endif %}</td>
+                <td>
+                    <a href="{{ path('ticket_show', { 'id': ticket.id }) }}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-eye-open" ></span></button></a>
+                    <a href="{{ path('ticket_edit', { 'id': ticket.id }) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+<script src="{{ asset('ticketFilter.js') }}"></script>
+{% endblock %}

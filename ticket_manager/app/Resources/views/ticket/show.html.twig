@@ -1,0 +1,95 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<div role="main" class="main-content">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Gestion d'un ticket</h1>
+    <p>Gestion des tickets</p>
+
+    <div class="information_header">
+      <h2 class="sub-header">{{ ticket.ticketName }}</h2>
+    </div></br>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Numéro :</label>
+      <div class="col-sm-10">
+           {{ ticket.ticketNum }}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Description :</label>
+      <div class="col-sm-10">
+           {{ ticket.ticketDescription }}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Date début :</label>
+      <div class="col-sm-10">
+           {% if ticket.ticketDateStart %}{{ ticket.ticketDateStart|date('Y-m-d') }}{% endif %}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Date Fin :</label>
+      <div class="col-sm-10">
+           {% if ticket.ticketDateEnd %}{{ ticket.ticketDateEnd|date('Y-m-d') }}{% endif %}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Dernière mise à jour :</label>
+      <div class="col-sm-10">
+           {% if ticket.ticketLastUpdate %}{{ ticket.ticketLastUpdate|date('Y-m-d') }}{% endif %}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Créateur :</label>
+      <div class="col-sm-10">
+           {{ ticket.ticketUserOwner}}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Responsable :</label>
+      <div class="col-sm-10">
+           {{ ticket.ticketUserManager }}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Client :</label>
+      <div class="col-sm-10">
+           {{ ticket.ticketCustomer.customerName }} /
+           {{ ticket.ticketCustomer.customerLastName }} /
+           {{ ticket.ticketCustomer.customerEmail }} /
+           {{ ticket.ticketCustomer.customerPhoneNumber }} /
+           {{ ticket.ticketCustomer.customerAddress }}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Equipe :</label>
+      <div class="col-sm-10">
+           {{ ticket.ticketSquad}}
+      </div>
+    </div></br>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Priorité :</label>
+      <div class="col-sm-10">
+           {{ ticket.ticketPriority}}
+      </div>
+    </div></br>
+    <div class="information_header">
+      <a href="{{ path('comment_new' , { 'id': ticket.id }) }}"><button class="btn btn-primary blue">Ajouter</button></a>
+      <h2 class="sub-header"> Commentaire :</h2>
+    </div></br>
+
+
+    {% for comment in comments %}
+      <div class="commentTitle">
+        <span>{{comment.commentUser}}</span>
+        <span>{{comment.commentDate | date('Y-m-d') }}</span>
+      </div>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{comment.commentValue}}</p>
+
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

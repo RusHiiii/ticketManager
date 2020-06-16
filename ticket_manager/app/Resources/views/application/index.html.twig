@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<div role="main" class="main-content">
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Gestion des Applications</h1>
+    <p>Visualisation des applications</p>
+
+    <div class="information_header">
+      <a href="{{ path('application_new') }}"><button class="btn btn-primary blue">Ajout</button></a>
+      <h2 class="sub-header">Les applications</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for application in applications %}
+              <tr>
+                  <td>{{ application.id }}</td>
+                  <td>{{ application.applicationName }}</td>
+                  <td>
+                    <a href="{{ path('application_edit', { 'id': application.id }) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                  </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

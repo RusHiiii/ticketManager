@@ -1,0 +1,46 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+<div role="main" class="main-content">
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Gestion des Clients</h1>
+    <p>Visualisation des clients</p>
+
+    <div class="information_header">
+      <a href="{{ path('addCustomer') }}">
+        <button type="button" class="btn btn-primary">Ajouter</button>
+      </a>
+      <h2 class="sub-header">Les clients</h2>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-left">Nom</th>
+            <th class="text-left">Prénom</th>
+            <th class="text-left">Adresse</th>
+            <th class="text-left">Email</th>
+            <th class="text-left">Téléphone</th>
+            <th class="text-left">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+
+        {% for customer in customers%}
+            <tr>
+                <td class="text-left">{{ customer.getCustomerLastName() }}</td>
+                <td class="text-left">{{ customer.getCustomerName() }}</td>
+                <td class="text-left">{{ customer.getCustomerAddress() }}</td>
+                <td class="text-left">{{ customer.getCustomerEmail() }}</td>
+                <td class="text-left">{{ customer.getCustomerPhoneNumber() }}</td>
+                <td class="text-left">
+                  <a href="{{ path('removeCustomer', {'id': customer.getId }) }}"> <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" ></span></button></a>
+                  <a href="{{ path('editCustomer', {'id': customer.getId }) }}"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" ></span></button></a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

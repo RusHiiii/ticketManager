@@ -1,0 +1,113 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends "::layout.html.twig" %}
+
+{% block fos_user_content %}
+
+
+<div role="main" class="main-content">
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Gestion des utilisateurs</h1>
+    <p>Formulaire permettant la création d'un utilisateur</p>
+
+    <h2 class="sub-header">Formulaire de création</h2>
+    <form action="{{ path("fos_user_registration_register") }}" method="post"  class="form-horizontal" action=" " method="post">
+
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_email" class="required col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" type="email">
+          {% if form_errors(form.email) %}
+            <div class="row">
+              <div class="col-md-6 offset-md-3 error_form">
+                <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.email) }}</span>
+              </div><br/>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_username" class="required col-sm-2 control-label">Nom utilisateur</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" maxlength="180" pattern=".{2,}" type="text">
+          {% if form_errors(form.username) %}
+          <div class="row">
+            <div class="col-md-6 offset-md-3 error_form">
+              <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.username) }}</span>
+            </div><br/>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_plainPassword_first" class="required col-sm-2 control-label">Mot de passe</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required" autocomplete="new-password" type="password">
+          {% if form_errors(form.plainPassword.first) %}
+          <div class="row">
+            <div class="col-md-6 offset-md-3 error_form">
+              <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.plainPassword.first) }}</span>
+            </div><br/>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_plainPassword_first" class="required col-sm-2 control-label">Confirmation mot de passe</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required" autocomplete="new-password" type="password">
+          {% if form_errors(form.plainPassword.second) %}
+          <div class="row">
+            <div class="col-md-6 offset-md-3 error_form">
+              <span><button type="button" class="btn btn-danger btn-xs">Error</button>{{ form_errors(form.plainPassword.second) }}</span>
+            </div><br/>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_userSquad" class="required col-sm-2 control-label">Equipe</label>
+        <div class="col-sm-10">
+          {{form_widget(form.userSquad , { 'attr': {'class': 'selectpicker'} }) }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_plainPassword_first" class="required col-sm-2 control-label">Numéro de téléphone</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="fos_user_registration_form_userPhoneNumber" name="fos_user_registration_form[userPhoneNumber]" required="required" maxlength="20" type="text">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_userSquad" class="required col-sm-2 control-label">Application</label>
+          <div class="col-sm-10">
+              {{form_widget(form.userApplication , { 'attr': {'class': 'selectpicker'} }) }}
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fos_user_registration_form_userSquad" class="required col-sm-2 control-label">Rôle :</label>
+          <div class="col-sm-10">
+            {{form_widget(form.roles , { 'attr': {'class': 'selectpicker'} }) }}
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+          <input type="submit" class="btn btn-primary blue" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }} " />
+        </div>
+      </div>
+
+      {{ form_row(form._token) }}
+      </form>
+  </div>
+</div>
+
+{% endblock fos_user_content %}
